@@ -1,0 +1,299 @@
+Family Blog Platform
+
+Vue 3 + Express + MongoDB (Home Server Deployment)
+
+1. Project Purpose
+
+This repository contains a personal/family blog platform with:
+
+Public blog posts and photo entries
+
+Public and private (family-only) photo galleries
+
+A protected family area with approval-based access
+
+An admin interface to manage all content and users
+
+The project is designed to run on a home server, exposed externally via a reverse proxy (e.g. Cloudflare Tunnel).
+
+2. Repository Structure
+
+The repository is split into two top-level folders only:
+
+/frontend
+/backend
+
+3. Frontend Stack & Architecture
+3.1 Technology Choices
+
+Vue 3 (Composition API only)
+
+Vue Router for navigation
+
+Pinia for state management (session, auth state)
+
+Firebase Auth (Google login only)
+
+Scoped CSS per component
+
+Styling theme:
+80s retro / Stranger Things–inspired
+
+Dark backgrounds
+
+Neon accent colors
+
+High-contrast typography
+
+No external CSS frameworks
+
+No Options API, no class components.
+
+3.2 Frontend Folder Structure
+/frontend
+  /src
+    /assets
+      /fonts
+      /images
+    /components
+      EntryCard.vue
+      GalleryGrid.vue
+      TagChip.vue
+    /views
+      HomeView.vue
+      BlogListView.vue
+      BlogDetailView.vue
+      GalleryListView.vue
+      GalleryDetailView.vue
+      FamilyGalleryListView.vue
+      FamilyGalleryCreateView.vue
+      AdminDashboardView.vue
+      AdminUsersView.vue
+    /router
+      index.js
+    /stores
+      authStore.js
+      sessionStore.js
+    /services
+      api.js
+      firebase.js
+    App.vue
+    main.js
+
+3.3 Routing Rules
+
+Public:
+
+/ → latest entries
+
+/blog
+
+/blog/:id
+
+/galleries
+
+/galleries/:slugOrId
+
+Authenticated (family):
+
+/family
+
+/family/galleries/new
+
+/family/galleries/:id/add
+
+Admin:
+
+/admin
+
+/admin/users
+
+/admin/posts
+
+/admin/galleries
+
+/admin/tags
+
+Route guards:
+
+Firebase auth required for /family/*
+
+Approved family status required (checked via backend)
+
+Admin routes protected by backend session
+
+3.4 State Management (Pinia)
+
+Stores:
+
+authStore
+
+Firebase user
+
+Auth loading state
+
+sessionStore
+
+Family user status (pending | approved | blocked)
+
+Admin session info
+
+No localStorage token hacks. Firebase handles identity.
+
+4. Backend Stack & Architecture
+4.1 Technology Choices
+
+Node.js
+
+Express
+
+MongoDB
+
+Mongoose
+
+Firebase Admin SDK
+
+Multer for uploads
+
+bcrypt for admin passwords
+
+4.2 Backend Folder Structure
+/backend
+  /src
+    /config
+      mongo.js
+      firebase.js
+    /models
+      Post.js
+      Entry.js
+      Gallery.js
+      Tag.js
+      FamilyUser.js
+      AdminUser.js
+    /routes
+      posts.js
+      entries.js
+      galleries.js
+      tags.js
+      family.js
+      admin.js
+    /middleware
+      requireAdmin.js
+      requireFamilyAuth.js
+      requireApprovedFamily.js
+    /uploads
+      /entries
+      /galleries
+    app.js
+    server.js
+
+. Authentication & Authorization
+5.1 Family Authentication
+
+Managed only via Firebase Auth
+
+Google accounts only
+
+On first login:
+
+Backend upserts a FamilyUser
+
+Status defaults to pending
+
+Backend blocks family routes unless status is approved
+
+No anonymous users. No email/password auth.
+
+5.2 Admin Authentication
+
+Separate login system
+
+Username + password
+
+Password stored hashed
+
+Session-based auth (HTTP-only cookies)
+
+Admin auth is completely independent of Firebase.
+
+7. Media Storage Strategy (Important)
+7.1 Decision: Filesystem / Object Storage, NOT MongoDB
+
+Do NOT store images directly in MongoDB.
+
+Use:
+
+Local filesystem (/uploads) for now
+
+Object storage later if needed
+
+MongoDB should store metadata only:
+
+Image URLs / relative paths
+
+Gallery associations
+
+7.3 File Storage Layout
+/uploads
+  /entries
+    /<entryId>
+      image.jpg
+  /galleries
+    /<gallerySlug>
+      img1.jpg
+      img2.jpg
+
+
+Paths are deterministic
+
+URLs are stored in DB
+
+Files can be backed up separately from MongoDB
+
+8. Styling Guidelines (Frontend)
+
+Scoped CSS only (<style scoped>)
+
+Dark UI baseline
+
+Neon accent palette
+
+Large typography
+
+Soft glow effects, subtle gradients
+
+Avoid heavy animations
+
+The vibe is nostalgic synthwave, not disco explosion.
+
+9. Non-Functional Constraints
+
+All create/update routes validate input
+
+Only image MIME types allowed for uploads
+
+Filenames sanitized
+
+Public galleries exclude family tag
+
+Family area shows only family tagged galleries
+
+10. Explicit Non-Goals (Do Not Implement)
+
+No comments system
+
+No public user registration
+
+No in-app messaging UI
+
+No role hierarchy beyond admin / family
+
+11. Deployment Assumptions
+
+Runs on a home server
+
+Reverse proxy terminates HTTPS
+
+MongoDB runs locally or in Docker
+
+Firebase used only for auth and future messaging
