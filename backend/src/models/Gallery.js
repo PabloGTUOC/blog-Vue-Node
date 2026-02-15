@@ -10,6 +10,9 @@ const gallerySchema = new mongoose.Schema({
     description: {
         type: String
     },
+    story: {
+        type: String
+    },
     coverImage: {
         type: String
     },
@@ -21,6 +24,14 @@ const gallerySchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tag'
     }],
+    year: {
+        type: Number,
+        required: true
+    },
+    month: {
+        type: Number,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

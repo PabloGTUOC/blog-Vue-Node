@@ -12,11 +12,31 @@ connectDB();
 const session = require('express-session');
 const { MongoStore } = require('connect-mongo');
 
-// ... imports
-
 // Middleware
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:5174'
+];
+
 app.use(cors({
-    origin: 'http://localhost:5173', // Vite default port
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        // Allow any localhost or local IP (192.168.x.x) during development
+        const isLocalhost = origin.includes('localhost') || origin.includes('127.0.0.1');
+        const isLocalIP = origin.match(/^http:\/\/192\.168\.\d+\.\d+:\d+$/);
+
+        if (isLocalhost || isLocalIP || allowedOrigins.indexOf(origin) !== -1) {
+            return callback(null, true);
+        }
+
+        var msg = 'The CORS policy for this site does not ' +
+            'allow access from the specified Origin: ' + origin;
+        return callback(new Error(msg), false);
+    },
     credentials: true
 }));
 app.use(express.json());
@@ -32,7 +52,7 @@ app.use(session({
         ttl: 14 * 24 * 60 * 60 // 14 days
     }),
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: false, // Changed to false to support HTTP local dev/NAS
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 // 1 day
     }
@@ -60,5 +80,15 @@ app.use('/api/posts', postsRoutes);
 app.use('/api/galleries', galleryRoutes);
 app.use('/api/entries', entryRoutes);
 app.use('/api/tags', tagRoutes);
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+    console.error('GLOBAL ERROR:', err);
+    res.status(500).json({
+        message: 'Internal Server Error (Global)',
+        error: err.message,
+        stack: err.stack
+    });
+});
 
 module.exports = app;

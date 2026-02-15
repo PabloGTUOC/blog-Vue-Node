@@ -9,7 +9,7 @@ export const useSessionStore = defineStore('session', {
     actions: {
         async checkAdminSession() {
             try {
-                const res = await api.get('/admin/me');
+                const res = await api.getAdminSession();
                 this.adminUser = res.data;
                 return true;
             } catch (err) {
@@ -19,7 +19,7 @@ export const useSessionStore = defineStore('session', {
         },
         async checkFamilyStatus() {
             try {
-                const res = await api.get('/family/me');
+                const res = await api.getFamilySession();
                 this.familyUser = res.data;
                 return this.familyUser;
             } catch (err) {
@@ -28,11 +28,11 @@ export const useSessionStore = defineStore('session', {
             }
         },
         async adminLogin(username, password) {
-            await api.post('/admin/login', { username, password });
+            await api.adminLogin({ username, password });
             await this.checkAdminSession();
         },
         async adminLogout() {
-            await api.post('/admin/logout');
+            await api.adminLogout();
             this.adminUser = null;
         }
     }

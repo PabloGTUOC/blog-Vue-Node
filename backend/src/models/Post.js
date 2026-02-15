@@ -10,6 +10,9 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    coverImage: {
+        type: String // URL or path to the uploaded image
+    },
     summary: {
         type: String
     },
@@ -31,9 +34,8 @@ const postSchema = new mongoose.Schema({
     }
 });
 
-postSchema.pre('save', function (next) {
+postSchema.pre('save', function () {
     this.updatedAt = Date.now();
-    next();
 });
 
 module.exports = mongoose.model('Post', postSchema);

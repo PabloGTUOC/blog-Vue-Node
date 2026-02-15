@@ -1,4 +1,5 @@
 <script setup>
+import { BACKEND_URL } from '../services/api'
 defineProps({
   entry: {
     type: Object,
@@ -9,7 +10,7 @@ defineProps({
 // Helper to resolve image URL
 const getImageUrl = (url) => {
   if (url.startsWith('http')) return url
-  return `http://localhost:5000${url}`
+  return `${BACKEND_URL}${url}`
 }
 </script>
 
@@ -26,10 +27,19 @@ const getImageUrl = (url) => {
 <style scoped>
 .entry-card {
   break-inside: avoid;
-  margin-bottom: 1rem;
-  background: #222;
-  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-maroon);
+  border-radius: var(--radius-md);
   overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.entry-card:hover {
+  border-color: var(--color-blood);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  transform: scale(1.02);
 }
 
 img {
@@ -38,11 +48,19 @@ img {
 }
 
 .meta {
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 h4 {
   margin: 0;
-  color: #fff;
+  color: var(--color-red);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+}
+
+p {
+  font-size: 0.8rem;
+  color: var(--color-text-dim);
+  margin-top: 0.3rem;
 }
 </style>

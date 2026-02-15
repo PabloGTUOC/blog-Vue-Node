@@ -1,11 +1,26 @@
 :root {
-  --color-bg: #09090b;
-  --color-text: #f0f0f0;
-  --color-neon-blue: #00f3ff;
-  --color-neon-pink: #bc13fe;
-  --color-neon-green: #0aff0a;
-  --font-main: 'Arial', sans-serif;
-  --font-display: 'Courier New', monospace;
+  --color-bg: #050505;
+  --color-surface: #121212;
+  --color-text: #ffffff;
+  --color-text-dim: #a1a1aa;
+
+  --color-red: #e63e44;
+  --color-blood: #8b0000;
+  --color-maroon: #4a0404;
+  --color-teal: #00a8a8;
+  --color-yellow: #f0b429;
+
+  /* Transition & Shaping - Refined for Camera App Alignment */
+  --border-thickness: 2px;
+  --hard-shadow-offset: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --glow-crimson: 0 0 40px 10px rgba(139, 0, 0, 0.3);
+
+  --font-logo: "Grenze", serif;
+  --font-display: "Libre Caslon Display", serif;
+  --font-ui: "Questrial", sans-serif;
+  --font-main: "Merriweather", serif;
 }
 
 body {
@@ -14,52 +29,85 @@ body {
   color: var(--color-text);
   font-family: var(--font-main);
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+#app {
+  width: 100%;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  background: var(--color-surface);
+  border: var(--border-thickness) solid var(--color-red);
+  box-shadow: var(--glow-crimson);
+  border-radius: var(--radius-md);
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Ensure content follows rounded corners */
 }
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3 {
   font-family: var(--font-display);
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 2px;
+  color: var(--color-red);
 }
 
 a {
-  color: var(--color-neon-blue);
+  color: var(--color-teal);
   text-decoration: none;
-  transition: text-shadow 0.3s ease;
+  transition: all 0.1s ease;
 }
 
 a:hover {
-  text-shadow: 0 0 8px var(--color-neon-blue);
+  color: var(--color-yellow);
 }
 
+/* Sticker/Neo-Brutalist Buttons */
 button {
-  background: transparent;
-  border: 1px solid var(--color-neon-pink);
-  color: var(--color-neon-pink);
-  padding: 0.5rem 1rem;
-  font-family: var(--font-display);
+  background: var(--color-surface);
+  border: var(--border-thickness) solid var(--color-red);
+  border-radius: var(--radius-sm);
+  color: var(--color-red);
+  padding: 0.6rem 1.2rem;
+  font-family: var(--font-ui);
+  font-weight: bold;
   cursor: pointer;
   text-transform: uppercase;
-  transition: all 0.3s ease;
+  letter-spacing: 2px;
+  transition: all 0.1s ease;
+  box-shadow: var(--hard-shadow-offset) var(--hard-shadow-offset) 0px 0px var(--color-maroon);
+  position: relative;
 }
 
 button:hover {
-  background: var(--color-neon-pink);
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px 0px var(--color-maroon);
+  background: var(--color-blood);
   color: #fff;
-  box-shadow: 0 0 15px var(--color-neon-pink);
+}
+
+button:active {
+  transform: translate(var(--hard-shadow-offset), var(--hard-shadow-offset));
+  box-shadow: 0px 0px 0px 0px var(--color-maroon);
 }
 
 input,
 textarea {
-  background: #111;
-  border: 1px solid #333;
+  background: #000;
+  border: var(--border-thickness) solid var(--color-maroon);
+  border-radius: var(--radius-sm);
   color: #fff;
-  padding: 0.5rem;
+  padding: 0.8rem;
   font-family: var(--font-main);
   width: 100%;
   box-sizing: border-box;
@@ -68,6 +116,35 @@ textarea {
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: var(--color-neon-green);
-  box-shadow: 0 0 5px var(--color-neon-green);
+  border-color: var(--color-red);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px var(--color-red);
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-maroon);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-red);
 }

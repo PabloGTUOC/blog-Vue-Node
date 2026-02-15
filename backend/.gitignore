@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.*
+
+# Firebase Admin SDK secret
+src/config/firebase-service-account.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Docker
+.dockerignore
+Dockerfile
+
+# MacOS
+.DS_Store
+
+# Uploads (usually ignored in git if they contain user data)
+src/uploads/posts/*
+src/uploads/entries/*
+src/uploads/galleries/*
+!src/uploads/posts/.gitkeep
+!src/uploads/entries/.gitkeep
+!src/uploads/galleries/.gitkeep

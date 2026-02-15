@@ -9,6 +9,12 @@ const BlogDetailView = () => import('../views/BlogDetailView.vue'); // Placehold
 const FamilyGalleryListView = () => import('../views/FamilyGalleryListView.vue');
 const FamilyGalleryCreateView = () => import('../views/FamilyGalleryCreateView.vue');
 const AdminDashboardView = () => import('../views/AdminDashboardView.vue');
+const AdminLoginView = () => import('../views/AdminLoginView.vue');
+const AdminPostsView = () => import('../views/AdminPostsView.vue');
+const AdminGalleriesView = () => import('../views/AdminGalleriesView.vue');
+const AdminUsersView = () => import('../views/AdminUsersView.vue');
+const AdminTagsView = () => import('../views/AdminTagsView.vue');
+const AdminGalleryDetailView = () => import('../views/AdminGalleryDetailView.vue');
 
 // For now, empty component to run
 const Placeholder = { template: '<div>Placeholder</div>' };
@@ -37,10 +43,44 @@ const router = createRouter({
             component: BlogDetailView
         },
         {
+            path: '/admin/login',
+            name: 'admin-login',
+            component: AdminLoginView
+        },
+        {
             path: '/admin',
             name: 'admin',
-            name: 'admin',
             component: AdminDashboardView,
+            meta: { requiresAdmin: true }
+        },
+        {
+            path: '/admin/posts',
+            name: 'admin-posts',
+            component: AdminPostsView,
+            meta: { requiresAdmin: true }
+        },
+        {
+            path: '/admin/galleries',
+            name: 'admin-galleries',
+            component: AdminGalleriesView,
+            meta: { requiresAdmin: true }
+        },
+        {
+            path: '/admin/galleries/:id',
+            name: 'admin-gallery-detail',
+            component: AdminGalleryDetailView,
+            meta: { requiresAdmin: true }
+        },
+        {
+            path: '/admin/tags',
+            name: 'admin-tags',
+            component: AdminTagsView,
+            meta: { requiresAdmin: true }
+        },
+        {
+            path: '/admin/users',
+            name: 'admin-users',
+            component: AdminUsersView,
             meta: { requiresAdmin: true }
         },
         {
@@ -69,7 +109,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.meta.requiresAdmin) {
         if (!sessionStore.adminUser) {
             const isAdmin = await sessionStore.checkAdminSession();
-            if (!isAdmin) return next('/'); // Or admin login
+            if (!isAdmin) return next('/admin/login');
         }
     }
 
