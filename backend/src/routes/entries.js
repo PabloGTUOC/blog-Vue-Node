@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage,
-    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+    limits: { fileSize: 50 * 1024 * 1024 }, // 50MB
     fileFilter: (req, file, cb) => {
         if (file.mimetype.startsWith('image/')) {
             cb(null, true);
@@ -44,11 +44,18 @@ router.get('/gallery/:galleryId', async (req, res) => {
 // Admin Route (For Bulk Uploads) - Moved up for clarity, though not strictly required if paths differ
 const requireAdmin = require('../middleware/requireAdmin');
 // Admin Route (For Bulk Uploads)
-router.post('/admin', async (req, res, next) => {
-    console.log('--- ADMIN UPLOAD ENTRY HIT ---');
-    console.log('Headers:', req.headers['content-type']);
-    next();
-}, requireAdmin, upload.single('image'), async (req, res) => {
+router.post('/admin', requireAdmin, (req, res, next) => {
+    upload.single('image')(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
+            console.error('ADMIN MULTER ERROR:', err.message);
+            return res.status(400).json({ message: `Upload Error (${err.code}): ` + err.message });
+        } else if (err) {
+            console.error('ADMIN GENERAL UPLOAD ERROR:', err);
+            return res.status(400).json({ message: 'General Upload Error: ' + err.message });
+        }
+        next();
+    });
+}, async (req, res) => {
     console.log('--- INSIDE ADMIN UPLOAD HANDLER ---');
     try {
         if (!req.file) return res.status(400).json({ message: 'Image required' });

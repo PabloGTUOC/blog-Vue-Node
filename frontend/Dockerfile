@@ -13,6 +13,7 @@ COPY --from=build-stage /app/dist /usr/share/nginx/html
 # Default nginx config for SPA routing
 RUN echo 'server { \
     listen 80; \
+    client_max_body_size 100M; \
     resolver 127.0.0.11 valid=30s; \
     location / { \
     root /usr/share/nginx/html; \
