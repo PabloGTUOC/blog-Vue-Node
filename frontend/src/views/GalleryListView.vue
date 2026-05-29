@@ -136,9 +136,9 @@ h1 {
     margin-bottom: 4rem;
     background: #FFFFFF;
     padding: 1.5rem;
-    border: 1px solid #1A1A1A;
-    border-radius: 4px;
-    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.15);
+    border: 2px solid #111;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
     flex-wrap: wrap;
     align-items: flex-end;
 }
@@ -152,55 +152,66 @@ h1 {
 .filter-group label {
     font-family: var(--font-ui);
     text-transform: uppercase;
-    font-size: 0.7rem;
-    font-weight: bold;
-    color: var(--color-secondary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--color-text);
     letter-spacing: 1px;
 }
 
 select {
     background: #FFFFFF;
-    border: 1px solid #1A1A1A;
+    border: 2px solid #111;
     color: var(--color-text);
     padding: 0.5rem 1rem;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
     font-family: var(--font-ui);
     min-width: 140px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
 }
 
 select:focus {
     outline: none;
     border-color: var(--color-accent);
-    box-shadow: 0 0 5px var(--glow-accent);
+    box-shadow: var(--shadow-md), var(--glow-accent);
 }
 
 .reset-btn {
     background: transparent;
-    border: 1px solid var(--color-accent);
+    border: 2px solid var(--color-accent);
     color: var(--color-accent);
-    font-size: 0.7rem;
-    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
     font-family: var(--font-display);
     text-transform: uppercase;
     font-weight: bold;
-    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.1s, box-shadow 0.1s;
 }
 .reset-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: var(--shadow-md), var(--glow-accent);
     background: var(--color-accent);
     color: #fff;
+}
+.reset-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--color-accent);
 }
 
 .empty-results {
     text-align: center;
     padding: 4rem;
-    color: var(--color-secondary);
+    color: var(--color-text);
     font-family: var(--font-display);
     font-size: 1.5rem;
     border: 2px dashed var(--color-secondary);
     border-radius: var(--radius-md);
     text-transform: uppercase;
     letter-spacing: 2px;
+    background: #fff;
+    box-shadow: var(--shadow-md);
 }
 </style>

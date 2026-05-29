@@ -50,27 +50,27 @@ const getMonthName = (m) => {
 
 .gallery-card {
   background: #FFFFFF;
-  padding: 10px;
-  border: 1px solid #1A1A1A;
+  padding: 12px;
+  border: 2px solid #111;
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  border-radius: var(--radius-md);
+  transition: transform 0.1s, box-shadow 0.1s;
   position: relative;
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
 .gallery-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #111, var(--glow-secondary);
 }
 
 .cover-image-container {
   overflow: hidden;
   height: 220px;
   width: 100%;
-  border: 1px solid #1A1A1A;
-  border-radius: 2px;
+  border: 2px solid #111;
+  border-radius: var(--radius-sm);
 }
 
 .gallery-card:hover .cover-image {
@@ -84,10 +84,10 @@ const getMonthName = (m) => {
   left: auto;
   background: var(--color-primary);
   color: #000;
-  border: 2px solid #000;
+  border: 2px solid #111;
   padding: 2px 8px;
   z-index: 10;
-  box-shadow: 2px 2px 0 #000;
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,25 +149,31 @@ p {
 
 .btn {
   display: inline-block;
-  color: #000;
+  color: #1A1A1A;
   background: var(--color-primary);
   text-decoration: none;
-  border: 1px solid transparent;
-  padding: 2px 6px;
+  border: 2px solid #111;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 0.8rem;
   text-transform: uppercase;
-  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s, box-shadow 0.1s;
   width: fit-content;
 }
 
 .btn:hover {
-  transform: none;
-  box-shadow: none;
-  filter: none;
-  background: #1A1A1A;
-  color: var(--color-primary);
-  border: 1px solid #1A1A1A;
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-md), var(--glow-primary-hover);
+  background: var(--color-primary);
+  color: #1A1A1A;
+  border: 2px solid #111;
+}
+
+.btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #111;
 }
 </style>

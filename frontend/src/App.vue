@@ -83,7 +83,7 @@ header {
   border-radius: var(--radius-pill);
   background: #111111;
   border: 2px solid var(--color-secondary);
-  box-shadow: var(--glow-secondary), inset 0 0 10px rgba(0, 240, 255, 0.4);
+  box-shadow: 4px 4px 0 #111, var(--glow-secondary), inset 0 0 10px rgba(0, 240, 255, 0.4);
   position: sticky;
   top: 1.5rem;
   z-index: 100;
@@ -102,9 +102,9 @@ header {
 .brand-logo {
   font-family: var(--font-logo);
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 900;
   font-style: italic;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   background: linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 40%, #FF007A 50%, #FF8A00 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -139,39 +139,45 @@ nav {
 nav a {
   font-family: var(--font-logo);
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 1.1rem;
-  font-weight: normal;
-  color: var(--color-secondary);
-  text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+  letter-spacing: 1px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
   text-decoration: none;
   transition: all 0.3s;
 }
 
 nav a:hover, nav a.router-link-active {
-  color: #FFFFFF;
-  text-shadow: 0 0 8px #FFFFFF, 0 0 15px var(--color-secondary);
+  color: var(--color-primary);
+  text-shadow: 0 0 8px var(--color-primary), 0 0 15px var(--color-accent);
 }
 
 .nav-btn {
   background: var(--color-primary);
   color: #1A1A1A;
-  border: 2px solid var(--color-accent);
+  border: 2px solid #1A1A1A;
   font-family: var(--font-display);
-  font-weight: bold;
-  box-shadow: 2px 2px 0 var(--color-accent);
-  border-radius: 4px;
-  font-size: 1.1rem;
-  padding: 0.5rem 1rem;
+  font-weight: 800;
+  box-shadow: 3px 3px 0 #1A1A1A;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  padding: 0.5rem 1.2rem;
   margin-left: 1rem;
   text-transform: uppercase;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .nav-btn:hover {
-  background: var(--color-accent);
-  color: var(--color-primary);
-  box-shadow: 2px 2px 0 var(--color-primary);
-  transform: translateY(-2px);
+  background: var(--color-primary);
+  color: #1A1A1A;
+  box-shadow: 4px 4px 0 #1A1A1A, var(--glow-primary);
+  transform: translate(-1px, -1px);
+}
+
+.nav-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #1A1A1A;
 }
 
 .container {
@@ -189,9 +195,10 @@ main {
 footer {
   text-align: center;
   padding: 3rem 2rem 2rem 2rem;
-  border-top: 1px solid var(--color-secondary);
-  font-size: 0.8rem;
+  border-top: 2px solid #1A1A1A;
+  font-size: 0.85rem;
   color: var(--color-text);
+  font-weight: 600;
 }
 
 footer a { color: #888; }

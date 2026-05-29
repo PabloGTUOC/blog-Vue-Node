@@ -33,18 +33,18 @@ const getImageUrl = (url) => {
   break-inside: avoid;
   margin-bottom: 2rem;
   background: #FFFFFF;
-  padding: 10px;
-  border: 1px solid #1A1A1A;
-  border-radius: 4px;
+  padding: 12px;
+  border: 2px solid #111;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  transition: all 0.2s ease;
+  transition: transform 0.1s, box-shadow 0.1s;
   cursor: pointer;
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
 .entry-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #111, var(--glow-accent);
 }
 
 .entry-card:hover img {
@@ -54,8 +54,8 @@ const getImageUrl = (url) => {
 .img-container {
   overflow: hidden;
   width: 100%;
-  border: 1px solid #1A1A1A;
-  border-radius: 2px;
+  border: 2px solid #111;
+  border-radius: var(--radius-sm);
 }
 
 img {
@@ -75,14 +75,15 @@ h4 {
   color: #1A1A1A;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   text-transform: uppercase;
 }
 
 p {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: #333;
-  margin-top: 0.3rem;
+  margin-top: 0.4rem;
   font-family: var(--font-main);
+  line-height: 1.4;
 }
 </style>

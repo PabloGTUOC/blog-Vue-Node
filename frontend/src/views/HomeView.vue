@@ -97,13 +97,13 @@ h1 {
   break-inside: avoid;
   margin-bottom: 2rem;
   background: #FFFFFF;
-  padding: 10px;
-  border: 1px solid #1A1A1A;
+  padding: 12px;
+  border: 2px solid #111;
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-md);
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: var(--shadow-md);
   position: relative;
 }
 
@@ -113,33 +113,32 @@ h1 {
   right: -10px;
   background: var(--color-primary);
   color: #000;
-  border: 2px solid #000;
+  border: 2px solid #111;
   font-family: var(--font-display);
   font-size: 0.75rem;
   font-weight: 900;
   padding: 2px 8px;
   z-index: 10;
-  box-shadow: 2px 2px 0 #000;
+  box-shadow: var(--shadow-sm);
   text-transform: uppercase;
 }
 
 .post-card:hover { 
-  transform: translateY(-4px);
-  box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #111, var(--glow-accent);
 }
 
 .post-image-container {
   overflow: hidden;
   width: 100%;
-  border: 1px solid #1A1A1A;
-  border-radius: 2px;
+  border: 2px solid #111;
+  border-radius: var(--radius-sm);
 }
 
 .post-image {
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
   transition: transform 0.3s ease;
   filter: sepia(0.2) contrast(1.1);
 }
@@ -172,32 +171,42 @@ h1 {
 }
 
 .read-more {
-    color: #000;
-    background: var(--color-primary);
-    text-decoration: none;
-    font-family: var(--font-display);
-    font-weight: 900;
-    text-transform: uppercase;
-    padding: 2px 6px;
-    font-size: 0.8rem;
-    transition: all 0.2s;
-    border: 1px solid transparent;
+  display: inline-block;
+  color: #1A1A1A;
+  background: var(--color-primary);
+  text-decoration: none;
+  border: 2px solid #111;
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.8rem;
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .read-more:hover {
-    background: #1A1A1A;
-    color: var(--color-primary);
-    border: 1px solid #1A1A1A;
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-md), var(--glow-primary-hover);
+  background: var(--color-primary);
+  color: #1A1A1A;
+  border: 2px solid #111;
+}
+
+.read-more:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #111;
 }
 
 .empty-state {
-    text-align: center;
-    color: var(--color-secondary);
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    padding: 5rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+  text-align: center;
+  color: var(--color-secondary);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  padding: 5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 @media (max-width: 768px) {
