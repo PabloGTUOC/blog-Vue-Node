@@ -20,6 +20,20 @@ const gallerySchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    type: {
+        type: String,
+        enum: ['family', 'analog'],
+        default: 'family'
+    },
+    camera: {
+        type: String
+    },
+    film: {
+        type: String
+    },
+    lab: {
+        type: String
+    },
     tags: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tag'

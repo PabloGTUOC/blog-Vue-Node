@@ -92,8 +92,8 @@ const deleteTag = async (id) => {
 
 <style scoped>
 .admin-tags { padding: 2rem 0; }
-.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; }
-.header h1 { color: var(--color-red); }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.header h1 { color: var(--color-text); font-family: var(--font-display); }
 
 .tags-list {
     display: grid;
@@ -102,50 +102,55 @@ const deleteTag = async (id) => {
 }
 
 .tag-card {
-    background: var(--color-surface);
-    border: var(--border-thickness) solid var(--color-maroon);
+    background: #FFFFFF;
+    border: none;
     padding: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.1s;
-    box-shadow: 4px 4px 0px 0px var(--color-blood);
-    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: var(--radius-md);
 }
 
 .tag-card:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px 0px var(--color-blood);
-    border-color: var(--color-red);
+    transform: translateY(-4px);
+    box-shadow: var(--glow-primary);
 }
 
-.tag-info h3 { margin: 0 0 0.5rem 0; font-size: 1.2rem; color: var(--color-text); }
-.tag-info code { color: var(--color-teal); font-family: monospace; }
+.tag-info h3 { margin: 0 0 0.5rem 0; font-size: 1.2rem; color: #1A1A1A; font-family: var(--font-display); }
+.tag-info code { color: var(--color-secondary); font-family: var(--font-display); background: rgba(107, 112, 92, 0.1); padding: 2px 6px; border-radius: 4px; }
 
 .btn-danger {
     padding: 0.5rem 1rem;
-    font-size: 0.7rem;
-    border: 1px solid var(--color-red);
-    color: var(--color-red);
+    font-size: 0.75rem;
+    border: 1px solid var(--color-shadow3);
+    color: var(--color-shadow3);
     background: transparent;
     cursor: pointer;
     text-transform: uppercase;
     border-radius: var(--radius-sm);
+    transition: all 0.2s;
+    font-weight: bold;
+    font-family: var(--font-ui);
 }
-.btn-danger:hover { background: var(--color-blood); color: #fff; }
+.btn-danger:hover { background: var(--color-shadow3); color: #FFF; transform: translateY(-2px); }
 
 .modal-overlay {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
     z-index: 1000;
+    backdrop-filter: blur(5px);
 }
 .modal {
-    background: var(--color-bg); padding: 3rem; width: 95%; max-width: 400px;
-    border: 3px solid var(--color-red);
-    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+    background: #FFFFFF; padding: 3rem; width: 95%; max-width: 400px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     border-radius: var(--radius-md);
 }
-.field { margin-bottom: 2rem; }
-.field label { display: block; color: var(--color-teal); text-transform: uppercase; font-size: 0.8rem; margin-bottom: 0.5rem; }
-.modal-actions { display: flex; gap: 1rem; }
+.modal h2 { font-family: var(--font-display); color: var(--color-text); margin-bottom: 2rem; }
+.field { margin-bottom: 1.5rem; }
+.field label { display: block; color: #1A1A1A; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 0.5rem; font-weight: 900; font-family: var(--font-display); }
+.modal-actions { display: flex; gap: 1rem; margin-top: 2rem; }
+.modal-actions button[type="button"] { background: var(--color-secondary); }
 </style>

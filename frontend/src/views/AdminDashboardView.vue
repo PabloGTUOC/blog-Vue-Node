@@ -45,8 +45,13 @@ const logout = async () => {
 }
 
 h1 {
-    color: var(--color-red);
-    text-shadow: var(--glow-red);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    margin-bottom: 1rem;
+}
+
+p {
+    color: var(--color-secondary);
 }
 
 .nav-grid {
@@ -57,50 +62,50 @@ h1 {
 }
 
 .card {
-    background: var(--color-surface);
+    background: #FFFFFF;
     padding: 2.5rem;
-    border: var(--border-thickness) solid var(--color-red);
+    border: none;
+    border-radius: var(--radius-md);
     text-decoration: none;
-    transition: all 0.1s ease;
-    box-shadow: var(--hard-shadow-offset) var(--hard-shadow-offset) 0px 0px var(--color-blood);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
 .card::before {
     content: 'SYS_ADMIN';
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: var(--color-red);
-    color: #fff;
+    top: 15px;
+    right: 15px;
+    background: var(--color-primary);
+    color: #FFFFFF;
     font-family: var(--font-ui);
-    font-size: 0.6rem;
-    padding: 2px 6px;
+    font-size: 0.65rem;
+    padding: 4px 10px;
     letter-spacing: 1px;
+    border-radius: 2px;
 }
 
 .card h3 {
-    color: var(--color-red);
+    color: #1A1A1A;
     margin-bottom: 0.8rem;
     font-size: 1.4rem;
+    font-family: var(--font-display);
 }
 
 .card p {
-    color: var(--color-text-dim);
+    color: var(--color-secondary);
     font-family: var(--font-ui);
-    font-size: 0.85rem;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 .card:hover {
-    transform: translate(3px, 3px);
-    box-shadow: 3px 3px 0px 0px var(--color-blood);
-    border-color: var(--color-yellow);
+    transform: translateY(-4px);
+    box-shadow: var(--glow-primary);
 }
 
 .btn-logout {
     margin-top: 3rem;
-    border-color: var(--color-blood);
-    color: var(--color-red);
 }
 </style>

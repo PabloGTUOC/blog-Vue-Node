@@ -10,7 +10,11 @@ const form = ref({
   description: '',
   story: '',
   year: now.getFullYear(),
-  month: now.getMonth() + 1
+  month: now.getMonth() + 1,
+  type: 'family',
+  camera: '',
+  film: '',
+  lab: ''
 })
 const loading = ref(false)
 
@@ -38,6 +42,29 @@ const submit = async () => {
             <label>Gallery Name</label>
             <input v-model="form.name" required />
         </div>
+        <div class="field">
+            <label>Gallery Type</label>
+            <select v-model="form.type" required>
+                <option value="family">Shared Family Gallery</option>
+                <option value="analog">Analog Gallery</option>
+            </select>
+        </div>
+
+        <div v-if="form.type === 'analog'" class="analog-fields" style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border: var(--border-thickness) solid var(--color-teal); border-radius: var(--radius-sm); margin-bottom: 2rem;">
+            <div class="field">
+                <label>Camera Type</label>
+                <input v-model="form.camera" placeholder="e.g. Canon AE-1" />
+            </div>
+            <div class="field">
+                <label>Film Type</label>
+                <input v-model="form.film" placeholder="e.g. Kodak Portra 400" />
+            </div>
+            <div class="field" style="margin-bottom: 0;">
+                <label>Lab</label>
+                <input v-model="form.lab" placeholder="e.g. Local Lab" />
+            </div>
+        </div>
+
         <div class="field">
             <label>Short Summary</label>
             <textarea v-model="form.description" placeholder="Brief summary for the gallery card..."></textarea>

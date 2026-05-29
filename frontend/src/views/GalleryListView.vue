@@ -48,7 +48,10 @@ const getMonthName = (m) => {
 
 <template>
   <div class="gallery-list">
-    <h1>Photo Galleries</h1>
+    <div class="section-title-wrapper">
+      <h1>PHOTO GALLERIES</h1>
+      <div class="title-line"></div>
+    </div>
     
     <!-- Filters Section -->
     <div class="filters">
@@ -89,12 +92,41 @@ const getMonthName = (m) => {
 <style scoped>
 .gallery-list {
   padding: 2rem 0;
+  max-width: 1000px;
+  margin: 0 auto;
 }
+
+.section-title-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  gap: 1rem;
+}
+
 h1 {
-  color: var(--color-red);
-  text-shadow: var(--glow-red);
-  margin-bottom: 2rem;
-  text-align: center;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: #001A33;
+  text-shadow: 2px 2px 0px rgba(0, 240, 255, 0.5);
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.title-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, #00F0FF, #FF007A);
+  position: relative;
+}
+.title-line::after {
+  content: ">>";
+  position: absolute;
+  right: -25px;
+  top: -8px;
+  color: #FF007A;
+  font-family: var(--font-display);
+  font-weight: bold;
 }
 
 .filters {
@@ -102,10 +134,11 @@ h1 {
     justify-content: center;
     gap: 2rem;
     margin-bottom: 4rem;
-    background: var(--color-surface);
+    background: #FFFFFF;
     padding: 1.5rem;
-    border: 1px solid var(--color-maroon);
-    border-radius: var(--radius-md);
+    border: 1px solid #1A1A1A;
+    border-radius: 4px;
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.15);
     flex-wrap: wrap;
     align-items: flex-end;
 }
@@ -121,45 +154,53 @@ h1 {
     text-transform: uppercase;
     font-size: 0.7rem;
     font-weight: bold;
-    color: var(--color-teal);
+    color: var(--color-secondary);
     letter-spacing: 1px;
 }
 
 select {
-    background: #000;
-    border: 1px solid var(--color-maroon);
-    color: #fff;
+    background: #FFFFFF;
+    border: 1px solid #1A1A1A;
+    color: var(--color-text);
     padding: 0.5rem 1rem;
-    border-radius: var(--radius-sm);
+    border-radius: 2px;
     font-family: var(--font-ui);
     min-width: 140px;
 }
 
 select:focus {
     outline: none;
-    border-color: var(--color-red);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 5px var(--glow-accent);
 }
 
 .reset-btn {
     background: transparent;
-    border: 1px solid var(--color-red);
-    color: var(--color-red);
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
     font-size: 0.7rem;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
     cursor: pointer;
-    border-radius: var(--radius-sm);
+    border-radius: 2px;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all 0.2s ease;
 }
 .reset-btn:hover {
-    background: var(--color-red);
+    background: var(--color-accent);
     color: #fff;
 }
 
 .empty-results {
     text-align: center;
     padding: 4rem;
-    color: var(--color-text-dim);
-    font-family: monospace;
-    border: 1px dashed var(--color-maroon);
+    color: var(--color-secondary);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    border: 2px dashed var(--color-secondary);
     border-radius: var(--radius-md);
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 </style>

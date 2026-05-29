@@ -1,37 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
 :root {
-  --color-bg: #050505;
-  --color-surface: #121212;
-  --color-text: #ffffff;
-  --color-text-dim: #a1a1aa;
+  --color-bg: #EAE6D7;
+  --color-primary: #FFE600;
+  --color-secondary: #00F0FF;
+  --color-accent: #FF007A;
+  --color-text: #1A1A1A;
+  --color-text-dim: #FFFFFF;
 
-  --color-red: #e63e44;
-  --color-blood: #8b0000;
-  --color-maroon: #4a0404;
-  --color-teal: #00a8a8;
-  --color-yellow: #f0b429;
+  /* Fonts */
+  --font-logo: "Impact", "Arial Black", sans-serif;
+  --font-display: "Courier New", monospace;
+  --font-ui: "Inter", "Roboto", sans-serif;
+  --font-main: "Courier New", monospace;
 
-  /* Transition & Shaping - Refined for Camera App Alignment */
+  /* Radii & Shadows */
   --border-thickness: 2px;
-  --hard-shadow-offset: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --glow-crimson: 0 0 40px 10px rgba(139, 0, 0, 0.3);
-
-  --font-logo: "Grenze", serif;
-  --font-display: "Libre Caslon Display", serif;
-  --font-ui: "Questrial", sans-serif;
-  --font-main: "Merriweather", serif;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-pill: 50px;
+  --glow-primary: 0 0 15px rgba(255, 230, 0, 0.6);
+  --glow-primary-hover: 0 0 25px rgba(255, 230, 0, 0.8);
+  --glow-secondary: 0 0 15px rgba(0, 240, 255, 0.6);
+  --glow-accent: 0 0 15px rgba(255, 0, 122, 0.6);
 }
+
 
 body {
   margin: 0;
   background-color: var(--color-bg);
+  background-image: radial-gradient(#d5d0c4 1px, transparent 1px);
+  background-size: 20px 20px;
   color: var(--color-text);
   font-family: var(--font-main);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+/* Film grain overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 #app {
@@ -40,96 +60,115 @@ body {
 
 .app-container {
   max-width: 1200px;
-  margin: 2rem auto;
-  background: var(--color-surface);
-  border: var(--border-thickness) solid var(--color-red);
-  box-shadow: var(--glow-crimson);
-  border-radius: var(--radius-md);
-  min-height: calc(100vh - 4rem);
+  margin: 0 auto;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  /* Ensure content follows rounded corners */
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3, .section-header {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--color-red);
+  color: var(--color-text);
 }
 
 a {
-  color: var(--color-teal);
+  color: var(--color-secondary);
   text-decoration: none;
-  transition: all 0.1s ease;
+  transition: all 0.2s ease;
 }
 
 a:hover {
-  color: var(--color-yellow);
+  color: var(--color-primary);
 }
 
-/* Sticker/Neo-Brutalist Buttons */
+/* Buttons */
 button {
-  background: var(--color-surface);
-  border: var(--border-thickness) solid var(--color-red);
+  background: var(--color-primary);
+  border: 1px solid #1A1A1A;
   border-radius: var(--radius-sm);
-  color: var(--color-red);
-  padding: 0.6rem 1.2rem;
+  color: #1A1A1A;
+  padding: 0.8rem 1.5rem;
   font-family: var(--font-ui);
   font-weight: bold;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  transition: all 0.1s ease;
-  box-shadow: var(--hard-shadow-offset) var(--hard-shadow-offset) 0px 0px var(--color-maroon);
-  position: relative;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
 }
 
 button:hover {
-  transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0px 0px var(--color-maroon);
-  background: var(--color-blood);
-  color: #fff;
+  box-shadow: var(--glow-primary-hover);
+  transform: translateY(-2px);
+  filter: brightness(1.1);
 }
 
 button:active {
-  transform: translate(var(--hard-shadow-offset), var(--hard-shadow-offset));
-  box-shadow: 0px 0px 0px 0px var(--color-maroon);
+  transform: translateY(0);
 }
 
-input,
-textarea {
-  background: #000;
-  border: var(--border-thickness) solid var(--color-maroon);
+button.secondary {
+  background: var(--color-secondary);
+}
+
+input:not([type="checkbox"]):not([type="radio"]), textarea, select {
+  background: #F9F9F9;
+  border: 2px solid #1A1A1A;
   border-radius: var(--radius-sm);
-  color: #fff;
+  color: var(--color-text);
   padding: 0.8rem;
   font-family: var(--font-main);
   width: 100%;
   box-sizing: border-box;
+  transition: all 0.2s;
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
 }
 
-input:focus,
-textarea:focus {
+input:not([type="checkbox"]):not([type="radio"]):focus, textarea:focus, select:focus {
   outline: none;
-  border-color: var(--color-red);
+  border-color: var(--color-primary);
+  background: #FFFFFF;
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
 }
 
-.glow-text {
-  text-shadow: 0 0 10px var(--color-red);
+/* Custom Checkbox */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  background: #F9F9F9;
+  border: 2px solid #1A1A1A;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  margin: 0;
 }
 
-@media (max-width: 768px) {
-  .app-container {
-    margin: 0;
-    border: none;
-    border-radius: 0;
-    min-height: 100vh;
-  }
+input[type="checkbox"]:checked {
+  background: var(--color-primary);
+  border-color: #1A1A1A;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #1A1A1A;
+  font-weight: 900;
+  font-family: var(--font-display);
+  font-size: 16px;
+}
+
+input[type="checkbox"]:focus {
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
+  border-color: var(--color-accent);
 }
 
 /* Scrollbar styling */
@@ -138,13 +177,14 @@ textarea:focus {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: rgba(0,0,0,0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-maroon);
+  background: var(--color-secondary);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-red);
+  background: var(--color-primary);
 }

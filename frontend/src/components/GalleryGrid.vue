@@ -28,7 +28,9 @@ const getMonthName = (m) => {
           <span class="m">{{ getMonthName(gallery.month) }}</span>
           <span class="y">{{ gallery.year }}</span>
       </div>
-      <div class="cover-image" :style="{ backgroundImage: `url(${getCoverUrl(gallery.coverImage)})` }"></div>
+      <div class="cover-image-container">
+        <div class="cover-image" :style="{ backgroundImage: `url(${getCoverUrl(gallery.coverImage)})` }"></div>
+      </div>
       <div class="info">
         <h3>{{ gallery.name }}</h3>
         <p>{{ gallery.description }}</p>
@@ -43,35 +45,49 @@ const getMonthName = (m) => {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2.5rem;
+  justify-content: center;
 }
 
 .gallery-card {
-  background: var(--color-surface);
-  border: 2px solid var(--color-maroon);
-  overflow: hidden;
-  border-radius: var(--radius-md);
+  background: #FFFFFF;
+  padding: 10px;
+  border: 1px solid #1A1A1A;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
   transition: all 0.2s ease;
   position: relative;
-  box-shadow: var(--hard-shadow-offset) var(--hard-shadow-offset) 0px 0px var(--color-maroon);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.15);
 }
 
 .gallery-card:hover {
-  transform: translate(-4px, -4px);
-  border-color: var(--color-red);
-  box-shadow: calc(var(--hard-shadow-offset) + 4px) calc(var(--hard-shadow-offset) + 4px) 0px 0px var(--color-blood);
+  transform: translateY(-4px);
+  box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.cover-image-container {
+  overflow: hidden;
+  height: 220px;
+  width: 100%;
+  border: 1px solid #1A1A1A;
+  border-radius: 2px;
+}
+
+.gallery-card:hover .cover-image {
+  transform: scale(1.05);
 }
 
 .card-date {
   position: absolute;
   top: 15px;
-  left: 15px;
-  background: rgba(18, 18, 18, 0.85);
-  backdrop-filter: blur(4px);
-  color: var(--color-text);
-  padding: 6px 10px;
-  border: 1px solid var(--color-maroon);
-  border-radius: var(--radius-sm);
-  z-index: 5;
+  right: -10px;
+  left: auto;
+  background: var(--color-primary);
+  color: #000;
+  border: 2px solid #000;
+  padding: 2px 8px;
+  z-index: 10;
+  box-shadow: 2px 2px 0 #000;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,43 +95,48 @@ const getMonthName = (m) => {
 }
 
 .card-date .m {
-    font-family: var(--font-ui);
+    font-family: var(--font-display);
     font-size: 0.65rem;
     font-weight: 900;
     letter-spacing: 1px;
-    color: var(--color-teal);
+    color: #000;
     margin-bottom: 2px;
 }
 
 .card-date .y {
-    font-family: monospace;
+    font-family: var(--font-display);
     font-size: 0.8rem;
     font-weight: bold;
+    color: #000;
 }
 
 .cover-image {
-  height: 220px;
+  height: 100%;
+  width: 100%;
   background-size: cover;
   background-position: center;
-  background-color: #000;
-  border-bottom: 2px solid var(--color-blood);
+  background-color: var(--color-secondary);
+  transition: transform 0.3s ease;
+  filter: sepia(0.2) contrast(1.1);
 }
 
 .info {
-  padding: 1.8rem;
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
 }
 
 h3 {
   margin: 0 0 0.8rem 0;
-  color: var(--color-red);
-  font-family: var(--font-display);
-  font-size: 1.4rem;
+  color: #1A1A1A;
+  font-family: var(--font-ui);
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 p {
-  color: var(--color-text-dim);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.4;
   margin-bottom: 1.8rem;
   height: 2.8rem;
   overflow: hidden;
@@ -123,29 +144,30 @@ p {
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
+  font-family: var(--font-main);
 }
 
 .btn {
   display: inline-block;
-  color: #fff;
-  background: var(--color-surface);
+  color: #000;
+  background: var(--color-primary);
   text-decoration: none;
-  border: 1px solid var(--color-teal);
-  border-radius: var(--radius-sm);
-  padding: 0.7rem 1.2rem;
-  font-family: var(--font-ui);
-  font-weight: bold;
+  border: 1px solid transparent;
+  padding: 2px 6px;
+  font-family: var(--font-display);
+  font-weight: 900;
   font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.1s ease;
-  box-shadow: var(--hard-shadow-offset) var(--hard-shadow-offset) 0px 0px var(--color-maroon);
+  transition: all 0.2s ease;
+  width: fit-content;
 }
 
 .btn:hover {
-  transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0px 0px var(--color-maroon);
-  background: var(--color-teal);
-  color: #000;
+  transform: none;
+  box-shadow: none;
+  filter: none;
+  background: #1A1A1A;
+  color: var(--color-primary);
+  border: 1px solid #1A1A1A;
 }
 </style>

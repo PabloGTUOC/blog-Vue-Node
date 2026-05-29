@@ -14,7 +14,11 @@ const form = ref({
     isFamilyOnly: false,
     tags: [],
     year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1
+    month: new Date().getMonth() + 1,
+    type: 'family',
+    camera: '',
+    film: '',
+    lab: ''
 })
 
 const getImageUrl = (path) => {
@@ -54,7 +58,11 @@ const openCreate = () => {
         isFamilyOnly: false,
         tags: [],
         year: new Date().getFullYear(),
-        month: new Date().getMonth() + 1
+        month: new Date().getMonth() + 1,
+        type: 'family',
+        camera: '',
+        film: '',
+        lab: ''
     }
     // Also clear file input if exists
     const fileInput = document.getElementById('gallery-cover')
@@ -70,7 +78,11 @@ const openEdit = (gallery) => {
         story: gallery.story || '',
         tags: gallery.tags ? gallery.tags.map(t => t._id || t) : [],
         year: gallery.year || new Date().getFullYear(),
-        month: gallery.month || new Date().getMonth() + 1
+        month: gallery.month || new Date().getMonth() + 1,
+        type: gallery.type || 'family',
+        camera: gallery.camera || '',
+        film: gallery.film || '',
+        lab: gallery.lab || ''
     }
     showModal.value = true
 }
@@ -84,7 +96,11 @@ const save = async () => {
             isFamilyOnly: form.value.isFamilyOnly,
             tags: form.value.tags,
             year: form.value.year,
-            month: form.value.month
+            month: form.value.month,
+            type: form.value.type,
+            camera: form.value.camera,
+            film: form.value.film,
+            lab: form.value.lab
         }
 
         let galleryId = null
@@ -155,7 +171,7 @@ const deleteGallery = async (id) => {
                 </td>
                 <td>
                     <img v-if="gallery.coverImage" :src="getImageUrl(gallery.coverImage)" 
-                         style="width: 50px; height: 50px; object-fit: cover; border: 1px solid var(--color-red); border-radius: 4px;" />
+                         style="width: 60px; height: 60px; object-fit: cover; border-radius: var(--radius-sm); box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
                 </td>
                 <td>
                     <span :class="gallery.isFamilyOnly ? 'status-family' : 'status-public'">
@@ -181,6 +197,27 @@ const deleteGallery = async (id) => {
                 <div class="field">
                     <label>Gallery Name</label>
                     <input v-model="form.name" required />
+                </div>
+                <div class="field">
+                    <label>Gallery Type</label>
+                    <select v-model="form.type" required>
+                        <option value="family">Shared Family Gallery</option>
+                        <option value="analog">Analog Gallery</option>
+                    </select>
+                </div>
+                <div v-if="form.type === 'analog'" class="analog-fields" style="background: #f0f0f0; padding: 1rem; border: 1px solid #1A1A1A; border-radius: 4px; margin-bottom: 1.5rem;">
+                    <div class="field">
+                        <label>Camera Type</label>
+                        <input v-model="form.camera" placeholder="e.g. Canon AE-1" />
+                    </div>
+                    <div class="field">
+                        <label>Film Type</label>
+                        <input v-model="form.film" placeholder="e.g. Kodak Portra 400" />
+                    </div>
+                    <div class="field" style="margin-bottom: 0;">
+                        <label>Lab</label>
+                        <input v-model="form.lab" placeholder="e.g. Local Lab" />
+                    </div>
                 </div>
                 <div class="field">
                     <label>Short Description (Card)</label>
@@ -233,91 +270,104 @@ const deleteGallery = async (id) => {
 
 <style scoped>
 .admin-galleries { padding: 2rem 0; }
-.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; }
-.header h1 { color: var(--color-red); }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.header h1 { color: var(--color-text); font-family: var(--font-display); }
 
 .brutalist-table {
     width: 100%;
-    border-collapse: separate; /* Required for table border-radius */
+    border-collapse: separate;
     border-spacing: 0;
-    background: var(--color-surface);
-    border: var(--border-thickness) solid var(--color-red);
-    border-radius: var(--radius-sm);
+    background: #FFFFFF;
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
 th {
-    background: var(--color-maroon);
-    color: var(--color-red);
+    background: #F9F9F9;
+    color: var(--color-secondary);
     text-transform: uppercase;
-    font-size: 0.75rem;
-    padding: 1rem;
+    font-size: 0.8rem;
+    padding: 1.2rem;
     text-align: left;
-    letter-spacing: 2px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 td {
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--color-maroon);
+    padding: 1.5rem 1.2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
     vertical-align: top;
+    color: var(--color-text);
 }
 
 .gallery-link {
-    color: var(--color-red);
+    color: #1A1A1A;
     font-weight: 900;
     font-size: 1.1rem;
+    font-family: var(--font-display);
     text-transform: uppercase;
     text-decoration: none;
     display: inline-block;
-    border-bottom: 2px solid transparent;
+    transition: color 0.2s;
 }
 .gallery-link:hover {
-    color: var(--color-teal);
-    border-bottom: 2px solid var(--color-teal);
+    color: var(--color-primary);
 }
 
-.desc { font-size: 0.8rem; color: var(--color-text-dim); margin-top: 0.5rem; }
+.desc { font-size: 0.85rem; color: var(--color-secondary); margin-top: 0.5rem; line-height: 1.4; }
 
 .timeline-badge {
-    background: var(--color-maroon);
-    color: var(--color-white);
+    background: rgba(107, 112, 92, 0.1);
+    color: var(--color-secondary);
     padding: 4px 8px;
     border-radius: 4px;
-    font-size: 0.8rem;
-    font-family: monospace;
+    font-size: 0.85rem;
+    font-weight: bold;
+    font-family: var(--font-display);
 }
 
-.status-family { color: var(--color-red); font-weight: bold; border: 1px solid var(--color-red); padding: 2px 6px; font-size: 0.6rem; border-radius: 4px; }
-.status-public { color: var(--color-teal); font-weight: bold; border: 1px solid var(--color-teal); padding: 2px 6px; font-size: 0.6rem; border-radius: 4px; }
+.status-family { color: var(--color-shadow3); font-weight: bold; border: 1px solid var(--color-shadow3); padding: 3px 8px; font-size: 0.65rem; border-radius: 4px; background: rgba(249, 65, 68, 0.1); }
+.status-public { color: var(--color-secondary); font-weight: bold; border: 1px solid var(--color-secondary); padding: 3px 8px; font-size: 0.65rem; border-radius: 4px; background: rgba(107, 112, 92, 0.1); }
 
 .btn-group { display: flex; gap: 0.5rem; }
-.btn-group button { padding: 0.4rem 1rem; font-size: 0.7rem; box-shadow: 3px 3px 0px 0px var(--color-blood); }
+.btn-group button { padding: 0.5rem 1rem; font-size: 0.75rem; background: var(--color-primary); color: #FFF; border: none; }
+.btn-group button:hover { transform: translateY(-2px); box-shadow: var(--glow-primary); }
+.btn-group .btn-danger { background: transparent; border: 1px solid var(--color-shadow3); color: var(--color-shadow3); box-shadow: none; }
+.btn-group .btn-danger:hover { background: var(--color-shadow3); color: #FFF; transform: translateY(-2px); }
 
 .modal-overlay {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
     z-index: 1000;
+    backdrop-filter: blur(5px);
 }
 .modal {
-    background: var(--color-bg); padding: 3rem; width: 95%; max-width: 500px;
-    border: 3px solid var(--color-red);
-    box-shadow: 8px 8px 0px 0px var(--color-blood);
+    background: #FFFFFF; padding: 3rem; width: 95%; max-width: 500px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     border-radius: var(--radius-md);
+    max-height: 90vh;
+    overflow-y: auto;
 }
+.modal h2 { font-family: var(--font-display); color: var(--color-text); margin-bottom: 2rem; }
 .field { margin-bottom: 1.5rem; flex: 1; }
 .field-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
-.field label { display: block; color: var(--color-teal); text-transform: uppercase; font-size: 0.8rem; margin-bottom: 0.5rem; font-weight: bold; }
-.field-check { display: flex; align-items: center; gap: 0.8rem; margin-top: 2rem; color: var(--color-yellow); }
+.field label { display: block; color: #1A1A1A; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 0.5rem; font-weight: 900; font-family: var(--font-display); }
+.field-check { display: flex; align-items: center; gap: 0.8rem; margin-top: 2rem; color: #1A1A1A; font-weight: bold; font-family: var(--font-ui); }
 .modal-actions { display: flex; gap: 1rem; margin-top: 3rem; }
+.modal-actions button[type="button"] { background: var(--color-secondary); }
 
 .multi-select {
     width: 100%;
-    background: #000;
-    border: var(--border-thickness) solid var(--color-maroon);
+    background: #F9F9F9;
+    border: 2px solid #1A1A1A;
     border-radius: var(--radius-sm);
-    color: var(--color-teal);
+    color: #1A1A1A;
     font-family: var(--font-ui);
     padding: 0.5rem;
     height: 100px;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
 }
 </style>

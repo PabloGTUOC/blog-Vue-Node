@@ -16,18 +16,20 @@ import { RouterLink } from 'vue-router'
 
 <style scoped>
 .admin-nav-container {
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-maroon);
-  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin-top: 0.5rem;
 }
 
 .admin-sub-nav {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  background: rgba(26, 26, 26, 0.95);
+  border-radius: var(--radius-pill);
+  padding: 0.5rem 2rem;
   display: flex;
   gap: 2rem;
   justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .admin-sub-nav a {
@@ -45,7 +47,7 @@ import { RouterLink } from 'vue-router'
 
 .admin-sub-nav a:hover,
 .admin-sub-nav a.router-link-active {
-  color: var(--color-teal);
+  color: var(--color-primary);
 }
 
 .admin-sub-nav a.router-link-active::after {
@@ -55,8 +57,8 @@ import { RouterLink } from 'vue-router'
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--color-teal);
-  box-shadow: 0 0 10px var(--color-teal);
+  background: var(--color-primary);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
 @media (max-width: 768px) {

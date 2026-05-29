@@ -41,17 +41,30 @@ const getImageUrl = (url) => {
 
 <style scoped>
 .blog-detail {
-  padding: 2rem;
-  max-width: 800px;
+  padding: 2rem 0;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
+.content-container {
+  background: #FFFFFF;
+  padding: 40px;
+  border: 1px solid #1A1A1A;
+  border-radius: 4px;
+  box-shadow: 6px 6px 0px rgba(0,0,0,0.15);
+  margin-top: 1rem;
+}
+
 h1 {
-  color: var(--color-red);
-  text-shadow: 0 0 10px rgba(230, 62, 68, 0.4);
-  margin-bottom: 1.5rem;
-  font-size: 2.5rem;
+  color: #1A1A1A;
+  font-family: var(--font-display);
+  font-size: 3rem;
   line-height: 1.1;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
 }
 
 .tags {
@@ -61,32 +74,34 @@ h1 {
 }
 
 .tag-label {
-  border: 1px solid var(--color-red);
-  color: var(--color-red);
-  font-family: var(--font-ui);
-  font-size: 0.65rem;
-  font-weight: bold;
+  background: var(--color-primary);
+  color: #000;
+  border: 2px solid #000;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 900;
   padding: 4px 10px;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 4px;
+  box-shadow: 2px 2px 0 #000;
 }
 
 .cover-image {
   width: 100%;
   height: auto;
-  max-height: 90vh;
+  max-height: 70vh;
   display: block;
-  border-bottom: 4px solid var(--color-blood);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-  border-radius: var(--radius-md);
+  object-fit: cover;
+  border: 1px solid #1A1A1A;
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  filter: sepia(0.2) contrast(1.1);
 }
 
 .content {
-  line-height: 1.8;
+  line-height: 1.6;
   white-space: pre-wrap; 
-  font-size: 1.2rem;
-  color: var(--color-text);
-  letter-spacing: 0.5px;
+  font-size: 1.1rem;
+  color: #333;
+  font-family: var(--font-main);
 }
 </style>

@@ -121,7 +121,7 @@ const uploadMiddleware = (req, res, next) => {
 // Admin: Create Gallery (JSON Only)
 router.post('/admin', requireAdmin, async (req, res) => {
     try {
-        const { name, description, story, isFamilyOnly, tags, year, month } = req.body;
+        const { name, description, story, isFamilyOnly, tags, year, month, type, camera, film, lab } = req.body;
 
         if (!name || !year || !month) {
             return res.status(400).json({ message: 'Name, Year, and Month are required.' });
@@ -134,7 +134,11 @@ router.post('/admin', requireAdmin, async (req, res) => {
             isFamilyOnly: isFamilyOnly === true || isFamilyOnly === 'true',
             tags,
             year: Number(year),
-            month: Number(month)
+            month: Number(month),
+            type: type || 'family',
+            camera,
+            film,
+            lab
         });
 
         res.status(201).json(gallery);
@@ -147,7 +151,7 @@ router.post('/admin', requireAdmin, async (req, res) => {
 // Update Gallery (Unified for Admin and Approved Family)
 router.put('/:id', requireFamilyAuth, requireApprovedFamily, async (req, res) => {
     try {
-        const { name, description, story, isFamilyOnly, tags, year, month, coverImage } = req.body;
+        const { name, description, story, isFamilyOnly, tags, year, month, coverImage, type, camera, film, lab } = req.body;
 
         // Basic Update Payload
         const updateData = {
@@ -158,7 +162,11 @@ router.put('/:id', requireFamilyAuth, requireApprovedFamily, async (req, res) =>
             tags,
             year: year ? Number(year) : undefined,
             month: month ? Number(month) : undefined,
-            coverImage: coverImage // Allow manual cover setting
+            coverImage: coverImage, // Allow manual cover setting
+            type,
+            camera,
+            film,
+            lab
         };
 
         // Clean undefined fields
